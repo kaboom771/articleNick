@@ -34,6 +34,11 @@ export const trpcRouter = trpc.router({
   getArticles: trpc.procedure.query(() => {
     return { articles }
   }),
+
+  // // Добавляем обязательную lazy процедуру
+  // lazy: trpc.procedure.query(() => {
+  //   return { message: 'Lazy endpoint' }
+  // }),
 })
 
-export type trpcRouter = typeof trpcRouter
+export type TrpcRouter = typeof trpcRouter
