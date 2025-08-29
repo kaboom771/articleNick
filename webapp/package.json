@@ -8,6 +8,9 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
+    "types": "pnpm type-check:app && pnpm type-check:node",
+    "type-check:app": "tsc --noEmit --project ./tsconfig.app.json",
+    "type-check:node": "tsc --noEmit --project ./tsconfig.node.json",
     "prettify": "prettier --loglevel-warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}' '!**/{node_modules,dist}/**/*'"
   },
   "dependencies": {
