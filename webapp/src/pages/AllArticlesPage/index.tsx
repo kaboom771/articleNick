@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom'
+import { GetViewArticleRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 export const AllAIrticlesPage = () => {
@@ -17,7 +19,9 @@ export const AllAIrticlesPage = () => {
       {data.articles.map((article) => {
         return (
           <div key={article.nick}>
-            <h2>{article.name}</h2>
+            <h2>
+              <Link to={GetViewArticleRoute({ articleNick: article.nick })}>{article.name}</Link>
+            </h2>
             <p>{article.description}</p>
           </div>
         )
