@@ -7,9 +7,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
-    "types": "pnpm type-check:app && pnpm type-check:node",
-    "type-check:app": "tsc --noEmit --project ./tsconfig.app.json",
-    "type-check:node": "tsc --noEmit --project ./tsconfig.node.json",
+    "types": "tsc --noEmit --project ./tsconfig.app.json && tsc --noEmit --project ./tsconfig.node.json",
     "lint": "eslint --cache --cache-location ./node_modules/.cache/.eslintcache --ext .ts,.tsx .",
     "prettify": "prettier --loglevel-warn --cache --write '{src/**/*,*}.{ts,tsx,js,json,yml,scss}' '!**/{node_modules,dist}/**/*'"
   },
