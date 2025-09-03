@@ -1,7 +1,8 @@
 import { useParams } from 'react-router-dom'
+import { ViewArticleRouteParams } from '../../lib/routes'
 
 export const ViewArticlePage = () => {
-  const { articleNick } = useParams() as { articleNick: string }
+  const { articleNick } = useParams() as ViewArticleRouteParams
   return (
     <div>
       <h1>{articleNick}</h1>
