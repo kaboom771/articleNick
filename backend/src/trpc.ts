@@ -1,5 +1,6 @@
 import { initTRPC } from '@trpc/server'
 import _ from 'lodash'
+import { z } from 'zod'
 
 const articles = _.times(100, (i) => {
   return {
@@ -16,11 +17,16 @@ export const trpcRouter = trpc.router({
   getArticles: trpc.procedure.query(() => {
     return { articles: articles.map((article) => _.pick(article, ['nick', 'name', 'description'])) }
   }),
-
-  // // Добавляем обязательную lazy процедуру
-  // lazy: trpc.procedure.query(() => {
-  //   return { message: 'Lazy endpoint' }
-  // }),
+  getArticle: trpc.procedure
+    .input(
+      z.object({
+        articleNick: z.string(),
+      })
+    )
+    .query(({ input }) => {
+      const article = articles.find((article) => article.nick === input.articleNick)
+      return { article: article || null }
+    }),
 })
 
 export type TrpcRouter = typeof trpcRouter
