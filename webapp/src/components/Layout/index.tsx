@@ -1,16 +1,21 @@
 import { Link, Outlet } from 'react-router-dom'
-import { getAllArticlesRoute } from '../../lib/routes'
+import { getAllArticlesRoute, getNewArticleRoute } from '../../lib/routes'
 import css from './index.module.scss'
 
 export const Layout = () => {
   return (
     <div className={css.layout}>
       <div className={css.navigation}>
-        <div className={css.logo}>IdeaNick</div>
+        <div className={css.logo}>ArticleNick</div>
         <ul className={css.menu}>
           <li className={css.item}>
             <Link className={css.link} to={getAllArticlesRoute()}>
-              All Ideas
+              All Articles
+            </Link>
+          </li>
+          <li className={css.item}>
+            <Link className={css.link} to={getNewArticleRoute()}>
+              New Article
             </Link>
           </li>
         </ul>

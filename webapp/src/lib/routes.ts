@@ -7,3 +7,5 @@ export const getAllArticlesRoute = () => '/'
 export const viewArticleRouteParams = getRouteParams({ articleNick: true })
 export type ViewArticleRouteParams = typeof viewArticleRouteParams
 export const getViewArticleRoute = ({ articleNick }: ViewArticleRouteParams) => `/articles/${articleNick}`
+
+export const getNewArticleRoute = () => '/articles/new'
