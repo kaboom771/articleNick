@@ -4,6 +4,7 @@ import { getAllArticlesRoute, getViewArticleRoute, viewArticleRouteParams } from
 import { TrpcProvider } from './lib/trpc'
 import { AllAIrticlesPage } from './pages/AllArticlesPage'
 import { ViewArticlePage } from './pages/ViewArticlePage'
+import './styles/global.scss'
 
 export const App = () => {
   return (

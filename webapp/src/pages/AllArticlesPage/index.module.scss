@@ -1,0 +1,29 @@
+@use '../../styles/_vars.scss' as vars;
+@use '../../styles/_mixins.scss' as *;
+
+.title {
+  @include h1;
+}
+
+.articles {
+  .article {
+    padding: 20px;
+    border: 1px solid vars.$black;
+    border-radius: 10px;
+    & + .article {
+      margin-top: 20px;
+    }
+
+    .articleName {
+      @include h2;
+
+      .articleLink {
+        @include link;
+      }
+    }
+
+    .articleDescription {
+      font-size: 18px;
+    }
+  }
+}

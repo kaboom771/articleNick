@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom'
 import { ViewArticleRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
+import css from './index.module.scss'
 
 export const ViewArticlePage = () => {
   const { articleNick } = useParams() as ViewArticleRouteParams
@@ -23,9 +24,9 @@ export const ViewArticlePage = () => {
 
   return (
     <div>
-      <h1>{data.article.name}</h1>
-      <p>{data.article.description}</p>
-      <div dangerouslySetInnerHTML={{ __html: data.article.text }} />
+      <h1 className={css.title}>{data.article.name}</h1>
+      <p className={css.description}>{data.article.description}</p>
+      <div className={css.text} dangerouslySetInnerHTML={{ __html: data.article.text }} />
     </div>
   )
 }
