@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { Segment } from '../../components/segment'
 import { getViewArticleRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
@@ -15,20 +16,22 @@ export const AllAIrticlesPage = () => {
   }
 
   return (
-    <div>
-      <h1 className={css.title}>All Articles</h1>
+    <Segment title="All Ideas">
       <div className={css.articles}>
         {data.articles.map((article) => (
           <div className={css.article} key={article.nick}>
-            <h2 className={css.articleName}>
-              <Link className={css.articleLink} to={getViewArticleRoute({ articleNick: article.nick })}>
-                {article.name}
-              </Link>
-            </h2>
-            <p className={css.articleDescription}>{article.description}</p>
+            <Segment
+              size={2}
+              title={
+                <Link className={css.articleLink} to={getViewArticleRoute({ articleNick: article.nick })}>
+                  {article.name}
+                </Link>
+              }
+              description={article.description}
+            />
           </div>
         ))}
       </div>
-    </div>
+    </Segment>
   )
 }

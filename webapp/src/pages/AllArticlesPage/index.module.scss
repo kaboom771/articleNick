@@ -1,10 +1,6 @@
 @use '../../styles/_vars.scss' as vars;
 @use '../../styles/_mixins.scss' as *;
 
-.title {
-  @include h1;
-}
-
 .articles {
   .article {
     padding: 20px;
@@ -14,16 +10,8 @@
       margin-top: 20px;
     }
 
-    .articleName {
-      @include h2;
-
-      .articleLink {
-        @include link;
-      }
-    }
-
-    .articleDescription {
-      font-size: 18px;
+    .articleLink {
+      @include link;
     }
   }
 }
