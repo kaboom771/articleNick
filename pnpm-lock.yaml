@@ -111,9 +111,6 @@ importers:
       '@trpc/server':
         specifier: ^10.37.1
         version: 10.37.1
-      include-media:
-        specifier: ^2.0.0
-        version: 2.0.0
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -126,9 +123,6 @@ importers:
       reset-css:
         specifier: ^5.0.2
         version: 5.0.2
-      sass:
-        specifier: ^1.92.0
-        version: 1.92.0
     devDependencies:
       '@types/react':
         specifier: ^18.3.24
@@ -142,9 +136,15 @@ importers:
       globals:
         specifier: ^16.3.0
         version: 16.3.0
+      include-media:
+        specifier: ^2.0.0
+        version: 2.0.0
       prettier:
         specifier: 3.0.1
         version: 3.0.1
+      sass:
+        specifier: ^1.92.0
+        version: 1.92.0
       stylelint:
         specifier: ^16.23.1
         version: 16.23.1(typescript@5.9.2)
