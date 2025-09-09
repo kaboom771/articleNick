@@ -114,6 +114,9 @@ importers:
       formik:
         specifier: ^2.4.6
         version: 2.4.6(@types/react@18.3.24)(react@18.3.1)
+      formik-validator-zod:
+        specifier: 1.0.2
+        version: 1.0.2(formik@2.4.6(@types/react@18.3.24)(react@18.3.1))(zod@3.22.2)
       react:
         specifier: ^18.3.1
         version: 18.3.1
@@ -126,6 +129,9 @@ importers:
       reset-css:
         specifier: ^5.0.2
         version: 5.0.2
+      zod:
+        specifier: 3.22.2
+        version: 3.22.2
     devDependencies:
       '@types/react':
         specifier: ^18.3.24
@@ -1540,6 +1546,12 @@ packages:
     resolution: {integrity: sha512-gIXjKqtFuWEgzFRJA9WCQeSJLZDjgJUOMCMzxtvFq/37KojM1BFGufqsCy0r4qSQmYLsZYMeyRqzIWOMup03sw==}
     engines: {node: '>=14'}
 
+  formik-validator-zod@1.0.2:
+    resolution: {integrity: sha512-1348tUpeHUCHf6HcNT/XLf2odSddbPgbUR1WAPFUM8vbXA+d6cj6sC1oV7aoo0dr9oFQm46gbz7pSdQiydFEuQ==}
+    peerDependencies:
+      formik: ^2.2.9
+      zod: ^3.19.1
+
   formik@2.4.6:
     resolution: {integrity: sha512-A+2EI7U7aG296q2TLGvNapDNTZp1khVt5Vk0Q/fyfSROss0V/V6+txt2aJnwEos44IxTCW/LYAi/zgWzlevj+g==}
     peerDependencies:
@@ -2894,6 +2906,9 @@ packages:
   yocto-queue@0.1.0:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
+
+  zod@3.22.2:
+    resolution: {integrity: sha512-wvWkphh5WQsJbVk1tbx1l1Ly4yg+XecD+Mq280uBGt9wa5BKSWf4Mhp6GmrkPixhMxmabYY7RbzlwVP32pbGCg==}
 
   zod@4.1.5:
     resolution: {integrity: sha512-rcUUZqlLJgBC33IT3PNMgsCq6TzLQEG/Ei/KTCU0PedSWRMAXoOUN+4t/0H+Q8bdnLPdqUYnvboJT0bn/229qg==}
@@ -4392,6 +4407,11 @@ snapshots:
       cross-spawn: 7.0.6
       signal-exit: 4.1.0
 
+  formik-validator-zod@1.0.2(formik@2.4.6(@types/react@18.3.24)(react@18.3.1))(zod@3.22.2):
+    dependencies:
+      formik: 2.4.6(@types/react@18.3.24)(react@18.3.1)
+      zod: 3.22.2
+
   formik@2.4.6(@types/react@18.3.24)(react@18.3.1):
     dependencies:
       '@types/hoist-non-react-statics': 3.3.7(@types/react@18.3.24)
@@ -5841,5 +5861,7 @@ snapshots:
   yn@3.1.1: {}
 
   yocto-queue@0.1.0: {}
+
+  zod@3.22.2: {}
 
   zod@4.1.5: {}
