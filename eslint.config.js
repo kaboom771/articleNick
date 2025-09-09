@@ -1,12 +1,12 @@
 import pluginJs from '@eslint/js'
+import tsPlugin from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
 import eslintConfigPrettier from 'eslint-config-prettier'
 import pluginImport from 'eslint-plugin-import'
 import prettierPlugin from 'eslint-plugin-prettier'
 import eslintReact from 'eslint-plugin-react'
 import pluginReact from 'eslint-plugin-react'
 import globals from 'globals'
-import tsPlugin from '@typescript-eslint/eslint-plugin'
-import tsParser from '@typescript-eslint/parser'
 
 // Вместо прямого импорта конфигов, используем flat config style
 const tsConfig = {
@@ -71,6 +71,14 @@ export default [
             caseInsensitive: false,
             orderImportKind: 'asc',
           },
+        },
+      ],
+      // Добавлено правило для проверки плавающих промисов
+      '@typescript-eslint/no-floating-promises': [
+        'error',
+        {
+          ignoreVoid: false, // запрещает использование void для игнорирования промисов
+          ignoreIIFE: false, // запрещает немедленно вызываемые функции
         },
       ],
       '@typescript-eslint/consistent-type-definitions': ['error', 'type'],

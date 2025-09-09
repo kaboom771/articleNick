@@ -1,26 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import React from 'react'
+import { FormikProps } from 'formik'
 
-export const TextArea = ({
-  name,
-  label,
-  state,
-  setState,
-}: {
-  name: string
-  label: string
-  state: Record<string, any>
-  setState: React.Dispatch<React.SetStateAction<any>>
-}) => {
+export const TextArea = ({ name, label, formik }: { name: string; label: string; formik: FormikProps<any> }) => {
+  const value = formik.values[name]
   return (
     <div style={{ marginBottom: 10 }}>
       <label htmlFor={name}>{label}</label>
       <br />
       <textarea
-        onChange={(e) => {
-          setState({ ...state, [name]: e.target.value })
+        onChange={async (e) => {
+          await formik.setFieldValue(name, e.target.value)
         }}
-        value={state[name]}
+        value={value}
         name={name}
         id={name}
       />
