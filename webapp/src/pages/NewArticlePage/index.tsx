@@ -4,8 +4,10 @@ import { z } from 'zod'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
+import { trpc } from '../../lib/trpc'
 
 export const NewArticlePage = () => {
+  const createArticle = trpc.createArticle.useMutation()
   const formik = useFormik({
     initialValues: {
       name: '',
@@ -24,8 +26,8 @@ export const NewArticlePage = () => {
         text: z.string().min(100, 'Text should be at least 100 characters long'),
       })
     ),
-    onSubmit: (values) => {
-      console.info('Submitted', values)
+    onSubmit: async (values) => {
+      await createArticle.mutateAsync(values)
     },
   })
 
