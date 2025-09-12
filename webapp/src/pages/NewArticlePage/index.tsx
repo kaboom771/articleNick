@@ -1,5 +1,6 @@
 import { zCreateArticleTrpcInput } from '@articleNick/backend/src/router/createArticle/input'
 import { useFormik } from 'formik'
+import { useState } from 'react'
 import { toFormikValidationSchema } from 'zod-formik-adapter' // Используем другой адаптер вместо 'formik-validator-zod'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
@@ -7,6 +8,7 @@ import { Segment } from '../../components/segment'
 import { trpc } from '../../lib/trpc'
 
 export const NewArticlePage = () => {
+  const [successMessageVisible, setSuccessMessageVisible] = useState(false)
   const createArticle = trpc.createArticle.useMutation()
   const formik = useFormik({
     initialValues: {
@@ -18,6 +20,11 @@ export const NewArticlePage = () => {
     validationSchema: toFormikValidationSchema(zCreateArticleTrpcInput), // передача типов для валидации с учетом другого адаптера
     onSubmit: async (values) => {
       await createArticle.mutateAsync(values)
+      formik.resetForm()
+      setSuccessMessageVisible(true)
+      setTimeout(() => {
+        setSuccessMessageVisible(false)
+      }, 3000)
     },
   })
 
@@ -34,6 +41,7 @@ export const NewArticlePage = () => {
         <Input name="description" label="Description" formik={formik} />
         <TextArea name="text" label="Text" formik={formik} />
         {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+        {successMessageVisible && <div style={{ color: 'green' }}>Idea created!</div>}
         <button type="submit" disabled={formik.isSubmitting}>
           {formik.isSubmitting ? 'Submitting...' : 'Create Article'}
         </button>
