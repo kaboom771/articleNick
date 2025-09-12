@@ -34,7 +34,9 @@ export const NewArticlePage = () => {
         <Input name="description" label="Description" formik={formik} />
         <TextArea name="text" label="Text" formik={formik} />
         {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        <button type="submit">Create Article</button>
+        <button type="submit" disabled={formik.isSubmitting}>
+          {formik.isSubmitting ? 'Submitting...' : 'Create Article'}
+        </button>
       </form>
     </Segment>
   )
