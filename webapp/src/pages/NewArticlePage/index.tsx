@@ -1,6 +1,6 @@
+import { zCreateArticleTrpcInput } from '@articleNick/backend/src/router/createArticle/input'
 import { useFormik } from 'formik'
-import { withZodSchema } from 'formik-validator-zod'
-import { z } from 'zod'
+import { toFormikValidationSchema } from 'zod-formik-adapter' // Используем другой адаптер вместо 'formik-validator-zod'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
@@ -15,17 +15,7 @@ export const NewArticlePage = () => {
       description: '',
       text: '',
     },
-    validate: withZodSchema(
-      z.object({
-        name: z.string().min(1),
-        nick: z
-          .string()
-          .min(1)
-          .regex(/^[a-z0-9-]+$/, 'Nick may contain only lowercase letters, numbers and dashes'),
-        description: z.string().min(1),
-        text: z.string().min(100, 'Text should be at least 100 characters long'),
-      })
-    ),
+    validationSchema: toFormikValidationSchema(zCreateArticleTrpcInput), // передача типов для валидации с учетом другого адаптера
     onSubmit: async (values) => {
       await createArticle.mutateAsync(values)
     },
