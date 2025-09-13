@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { toFormikValidationSchema } from 'zod-formik-adapter' // Используем другой адаптер вместо 'formik-validator-zod'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
+import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
@@ -47,14 +48,16 @@ export const NewArticlePage = () => {
           formik.handleSubmit()
         }}
       >
-        <Input name="name" label="Name" formik={formik} />
-        <Input name="nick" label="Nick" formik={formik} />
-        <Input name="description" label="Description" formik={formik} maxWidth={500} />
-        <TextArea name="text" label="Text" formik={formik} />
-        {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-        {!!submittingError && <Alert color="red">{submittingError}</Alert>}
-        {successMessageVisible && <Alert color="green">Article Created!</Alert>}
-        <Button loading={formik.isSubmitting}>Create Article</Button>
+        <FormItems>
+          <Input name="name" label="Name" formik={formik} />
+          <Input name="nick" label="Nick" formik={formik} />
+          <Input name="description" label="Description" formik={formik} maxWidth={500} />
+          <TextArea name="text" label="Text" formik={formik} />
+          {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
+          {!!submittingError && <Alert color="red">{submittingError}</Alert>}
+          {successMessageVisible && <Alert color="green">Article Created!</Alert>}
+          <Button loading={formik.isSubmitting}>Create Article</Button>
+        </FormItems>
       </form>
     </Segment>
   )
