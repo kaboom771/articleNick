@@ -19,6 +19,7 @@
     "@trpc/client": "10.37.1",
     "@trpc/react-query": "10.37.1",
     "@trpc/server": "^10.37.1",
+    "classnames": "^2.5.1",
     "formik": "^2.4.6",
     "formik-validator-zod": "1.0.2",
     "react": "^18.3.1",
