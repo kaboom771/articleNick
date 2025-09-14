@@ -1,7 +1,13 @@
-import _ from 'lodash'
-import { articles } from '../../lib/articles'
 import { trpc } from '../../lib/trpc'
 
-export const getArticlesTrpcRoute = trpc.procedure.query(() => {
-  return { articles: articles.map((article) => _.pick(article, ['nick', 'name', 'description'])) }
+export const getArticlesTrpcRoute = trpc.procedure.query(async ({ ctx }) => {
+  const articles = await ctx.prisma.article.findMany({
+    select: {
+      id: true,
+      nick: true,
+      name: true,
+      description: true,
+    },
+  })
+  return { articles }
 })

@@ -7,7 +7,7 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Idea {
+model Article {
   id          String @id @default(uuid())
   nick        String @unique
   name        String
