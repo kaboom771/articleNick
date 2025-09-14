@@ -1,5 +1,4 @@
 import { z } from 'zod'
-import { articles } from '../../lib/articles'
 import { trpc } from '../../lib/trpc'
 
 export const getArticleTrpcRoute = trpc.procedure
@@ -8,7 +7,11 @@ export const getArticleTrpcRoute = trpc.procedure
       articleNick: z.string(),
     })
   )
-  .query(({ input }) => {
-    const article = articles.find((article) => article.nick === input.articleNick)
-    return { article: article || null }
+  .query(async ({ ctx, input }) => {
+    const article = await ctx.prisma.article.findUnique({
+      where: {
+        nick: input.articleNick,
+      },
+    })
+    return { article }
   })
