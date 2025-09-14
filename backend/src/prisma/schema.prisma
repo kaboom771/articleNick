@@ -13,4 +13,5 @@ model Article {
   name        String
   description String
   text        String
+  createdAt   DateTime @default(now())
 }
