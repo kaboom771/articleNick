@@ -1,11 +1,17 @@
-import { articles } from '../../lib/articles'
 import { trpc } from '../../lib/trpc'
 import { zCreateArticleTrpcInput } from './input'
 
-export const createArticleTrpcRoute = trpc.procedure.input(zCreateArticleTrpcInput).mutation(({ input }) => {
-  if (articles.find((article) => article.nick === input.nick)) {
+export const createArticleTrpcRoute = trpc.procedure.input(zCreateArticleTrpcInput).mutation(async ({ input, ctx }) => {
+  const exArticle = await ctx.prisma.article.findUnique({
+    where: {
+      nick: input.nick,
+    },
+  })
+  if (exArticle) {
     throw Error('Artickle with this nick already exist')
   }
-  articles.unshift(input)
+  await ctx.prisma.article.create({
+    data: input,
+  })
   return true
 })
