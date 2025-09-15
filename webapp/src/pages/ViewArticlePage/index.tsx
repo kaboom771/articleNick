@@ -1,3 +1,4 @@
+import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
 import { Segment } from '../../components/segment'
 import { ViewArticleRouteParams } from '../../lib/routes'
@@ -25,6 +26,7 @@ export const ViewArticlePage = () => {
 
   return (
     <Segment title={data.article.name} description={data.article.description}>
+      <div className={css.createdAt}>Created At: {format(data.article.createdAt, 'yyyy-MM-dd')}</div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: data.article.text }} />
     </Segment>
   )
