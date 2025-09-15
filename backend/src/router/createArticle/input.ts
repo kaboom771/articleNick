@@ -8,11 +8,11 @@ export const zCreateArticleTrpcInput = z.object({
   //   .regex(/^[a-z0-9-]+$/, 'Nick may contain only lowercase letters, numbers and dashes'),
   // description: z.string().min(1, 'Description must contain at least 1 character'),
   // text: z.string().min(100, 'Text should be at least 100 characters long'),
-  name: z.string('Name must contain at least 1 character').min(3),
+  name: z.string('Name must be not empty').min(3),
   nick: z
-    .string('Nick must contain at least 1 character')
+    .string('Nick must be not empty')
     .min(3)
     .regex(/^[a-z0-9-]+$/, 'Nick may contain only lowercase letters, numbers and dashes'),
-  description: z.string('Description must contain at least 1 character'),
-  text: z.string('Text should be at least 100 characters long').min(100),
+  description: z.string('Description must be not empty'),
+  text: z.string('Text must be not empty').min(100),
 })
