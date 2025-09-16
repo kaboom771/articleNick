@@ -11,3 +11,5 @@ export const getViewArticleRoute = ({ articleNick }: ViewArticleRouteParams) => 
 export const getNewArticleRoute = () => '/articles/new'
 
 export const getSignUpRoute = () => '/sign-up'
+
+export const getSignInRoute = () => '/sign-in'
