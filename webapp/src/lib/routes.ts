@@ -9,3 +9,5 @@ export type ViewArticleRouteParams = typeof viewArticleRouteParams
 export const getViewArticleRoute = ({ articleNick }: ViewArticleRouteParams) => `/articles/${articleNick}`
 
 export const getNewArticleRoute = () => '/articles/new'
+
+export const getSignUpRoute = () => '/sign-up'
