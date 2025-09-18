@@ -15,6 +15,7 @@ export default [
       'react/react-in-jsx-scope': 'off', // React 17+ не требует импортировать React
       //   'jsx-a11y/anchor-is-valid': 'off',
       '@typescript-eslint/no-explicit-any': 'warn',
+      '@typescript-eslint/no-floating-promises': 'warn',
     },
   },
 
