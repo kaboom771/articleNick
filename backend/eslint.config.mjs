@@ -30,6 +30,7 @@ export default [
           allowedVariables: [],
         },
       ],
+      '@typescript-eslint/no-explicit-any': 'warn',
     },
   },
   {
