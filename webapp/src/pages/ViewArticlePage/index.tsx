@@ -27,6 +27,7 @@ export const ViewArticlePage = () => {
   return (
     <Segment title={data.article.name} description={data.article.description}>
       <div className={css.createdAt}>Created At: {format(data.article.createdAt, 'yyyy-MM-dd')}</div>
+      <div className={css.author}>Author: {data.article.author.nick}</div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: data.article.text }} />
     </Segment>
   )
