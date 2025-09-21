@@ -3,6 +3,7 @@ import { Layout } from './components/Layout'
 import * as routes from './lib/routes'
 import { TrpcProvider } from './lib/trpc'
 import { AllAIrticlesPage } from './pages/AllArticlesPage'
+import { EditArticlePage } from './pages/EditIdeaPage'
 import { NewArticlePage } from './pages/NewArticlePage'
 import { SignInPage } from './pages/SignInPage'
 import { SignOutPage } from './pages/SignOutPage'
@@ -23,6 +24,7 @@ export const App = () => {
             <Route path={routes.getAllArticlesRoute()} element={<AllAIrticlesPage />} />
             <Route path={routes.getViewArticleRoute(routes.viewArticleRouteParams)} element={<ViewArticlePage />} />
             <Route path={routes.getNewArticleRoute()} element={<NewArticlePage />} />
+            <Route path={routes.getEditArticleRoute(routes.editArticleRouteParams)} element={<EditArticlePage />} />
           </Route>
         </Routes>
       </BrowserRouter>
