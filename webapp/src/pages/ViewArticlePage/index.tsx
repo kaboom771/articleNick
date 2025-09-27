@@ -1,4 +1,4 @@
-import { format } from 'date-fns/format'
+// import { format } from 'date-fns/format'
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/segment'
@@ -35,7 +35,7 @@ export const ViewArticlePage = () => {
 
   return (
     <Segment title={article.name} description={article.description}>
-      <div className={css.createdAt}>Created At: {format(article.createdAt, 'yyyy-MM-dd')}</div>
+      {/* <div className={css.createdAt}>Created At: {format(article.createdAt, 'yyyy-MM-dd')}</div> */}
       <div className={css.author}>Author: {article.author.nick}</div>
       <div className={css.text} dangerouslySetInnerHTML={{ __html: article.text }} />
       {me?.id === article.authorId && (

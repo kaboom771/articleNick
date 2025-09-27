@@ -6,7 +6,6 @@ import { applyPassportToExpressApp } from './lib/passport'
 import { applyTrpcToExpressApp } from './lib/trpc'
 import { trpcRouter } from './router'
 
-// eslint-disable-next-line @typescript-eslint/no-floating-promises
 void (async () => {
   let ctx: AppContext | null = null
   try {

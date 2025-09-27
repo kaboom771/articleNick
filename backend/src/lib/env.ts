@@ -10,5 +10,4 @@ const zEnv = z.object({
   PASSWORD_SALT: z.string().trim().min(1),
 })
 
-// eslint-disable-next-line n/no-process-env
 export const env = zEnv.parse(process.env)

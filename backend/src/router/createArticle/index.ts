@@ -10,6 +10,7 @@ export const createArticleTrpcRoute = trpc.procedure.input(zCreateArticleTrpcInp
       nick: input.nick,
     },
   })
+
   if (exArticle) {
     throw Error('Artickle with this nick already exist')
   }

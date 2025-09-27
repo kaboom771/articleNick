@@ -1,39 +1,33 @@
 import { zSignInTrpcInput } from '@articleNick/backend/src/router/signIn/input'
-import { useFormik } from 'formik'
 import Cookies from 'js-cookie'
-import { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { toFormikValidationSchema } from 'zod-formik-adapter'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { Segment } from '../../components/segment'
+import { useForm } from '../../lib/form'
 import { getAllArticlesRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
 export const SignInPage = () => {
   const navigate = useNavigate()
-  const trpcUtils = trpc.useContext()
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
+  const trpcUtils = trpc.useUtils()
   const signIn = trpc.signIn.useMutation()
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: {
       nick: '',
       password: '',
     },
-    validationSchema: toFormikValidationSchema(zSignInTrpcInput), // передача типов для валидации с учетом другого адаптера
+
+    validationSchema: zSignInTrpcInput, // передача типов для валидации с учетом другого адаптера
     onSubmit: async (values) => {
-      try {
-        setSubmittingError(null)
-        const { token } = await signIn.mutateAsync(values)
-        Cookies.set('token', token, { expires: 99999 })
-        void trpcUtils.invalidate()
-        await navigate(getAllArticlesRoute())
-      } catch (err: any) {
-        setSubmittingError(err.message)
-      }
+      const { token } = await signIn.mutateAsync(values)
+      Cookies.set('token', token, { expires: 99999 })
+      void trpcUtils.invalidate()
+      navigate(getAllArticlesRoute())
     },
+    resetOnSuccess: false,
   })
 
   return (
@@ -42,9 +36,8 @@ export const SignInPage = () => {
         <FormItems>
           <Input label="Nick" name="nick" formik={formik} />
           <Input label="Password" name="password" type="password" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <Alert color="red">Some fields are invalid</Alert>}
-          {submittingError && <Alert color="red">{submittingError}</Alert>}
-          <Button loading={formik.isSubmitting}>Sign In</Button>
+          <Alert {...alertProps}></Alert>
+          <Button {...buttonProps}>Sign In</Button>
         </FormItems>
       </form>
     </Segment>

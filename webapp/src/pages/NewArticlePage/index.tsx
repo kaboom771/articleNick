@@ -1,43 +1,29 @@
 import { zCreateArticleTrpcInput } from '@articleNick/backend/src/router/createArticle/input'
-import { useFormik } from 'formik'
-import { useState } from 'react'
-import { toFormikValidationSchema } from 'zod-formik-adapter' // Используем другой адаптер вместо 'formik-validator-zod'
 import { Alert } from '../../components/Alert'
 import { Button } from '../../components/Button'
 import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
+import { useForm } from '../../lib/form'
 import { trpc } from '../../lib/trpc'
 
 export const NewArticlePage = () => {
-  const [successMessageVisible, setSuccessMessageVisible] = useState(false)
-  const [submittingError, setSubmittingError] = useState<string | null>(null)
   const createArticle = trpc.createArticle.useMutation()
-
-  const formik = useFormik({
+  const { formik, buttonProps, alertProps } = useForm({
     initialValues: {
       name: '',
       nick: '',
       description: '',
       text: '',
     },
-    validationSchema: toFormikValidationSchema(zCreateArticleTrpcInput), // передача типов для валидации с учетом другого адаптера
+    validationSchema: zCreateArticleTrpcInput, // передача типов для валидации с учетом другого адаптера
     onSubmit: async (values) => {
-      try {
-        await createArticle.mutateAsync(values)
-        formik.resetForm()
-        setSuccessMessageVisible(true)
-        setTimeout(() => {
-          setSuccessMessageVisible(false)
-        }, 3000)
-      } catch (error: any) {
-        setSubmittingError(error.message)
-        setTimeout(() => {
-          setSubmittingError(null)
-        }, 3000)
-      }
+      await createArticle.mutateAsync(values)
+      formik.resetForm()
     },
+    successMessage: 'Article created',
+    showValidationAlert: true,
   })
 
   return (
@@ -53,10 +39,8 @@ export const NewArticlePage = () => {
           <Input name="nick" label="Nick" formik={formik} />
           <Input name="description" label="Description" formik={formik} maxWidth={500} />
           <TextArea name="text" label="Text" formik={formik} />
-          {!formik.isValid && !!formik.submitCount && <div style={{ color: 'red' }}>Some fields are invalid</div>}
-          {!!submittingError && <Alert color="red">{submittingError}</Alert>}
-          {successMessageVisible && <Alert color="green">Article Created!</Alert>}
-          <Button loading={formik.isSubmitting}>Create Article</Button>
+          <Alert {...alertProps} />
+          <Button {...buttonProps}>Create Article</Button>
         </FormItems>
       </form>
     </Segment>

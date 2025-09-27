@@ -1,5 +1,5 @@
 {
-  "name": "articlenick",
+  "name": "articleNick",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -10,26 +10,25 @@
     "types": "concurrently 'pnpm b types' 'pnpm w types'",
     "lint": "concurrently 'pnpm b lint' 'pnpm w lint'",
     "prettify": "pnpm -r --parallel prettify",
-    "prepare": "husky"
+    "prepare": "husky install"
   },
   "devDependencies": {
-    "@eslint/js": "^9.34.0",
-    "@typescript-eslint/eslint-plugin": "^8.41.0",
-    "@typescript-eslint/parser": "^8.41.0",
-    "@typescript-eslint/utils": "^8.41.0",
-    "concurrently": "^9.2.1",
-    "eslint": "^9.34.0",
-    "eslint-config-prettier": "^10.1.8",
+    "@typescript-eslint/eslint-plugin": "^8.44.1",
+    "@typescript-eslint/parser": "^8.44.1",
+    "concurrently": "^8.2.0",
+    "eslint": "^9.36.0",
     "eslint-plugin-import": "^2.32.0",
-    "eslint-plugin-prettier": "^5.5.4",
     "eslint-plugin-react": "^7.37.5",
-    "globals": "^15.15.0",
-    "husky": "^9.1.7",
-    "lint-staged": "^16.1.5",
-    "prettier": "3.0.1",
-    "rimraf": "5.0.1",
-    "ts-node": "10.9.1",
+    "globals": "^16.4.0",
+    "husky": "^8.0.3",
+    "lint-staged": "^14.0.0",
+    "prettier": "^3.0.2",
+    "rimraf": "^5.0.1",
+    "ts-node": "^10.9.1",
     "ts-node-dev": "^2.0.0",
-    "typescript": "5.9.2"
+    "typescript": "^5.1.6"
+  },
+  "dependencies": {
+    "@eslint/js": "^9.36.0"
   }
 }
