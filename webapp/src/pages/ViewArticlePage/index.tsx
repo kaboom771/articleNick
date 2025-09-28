@@ -2,6 +2,7 @@
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/segment'
+import { useMe } from '../../lib/ctx'
 import { getEditArticleRoute, ViewArticleRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
@@ -12,9 +13,9 @@ export const ViewArticlePage = () => {
   const getArticleResult = trpc.getArticle.useQuery({
     articleNick,
   })
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
-  if (getArticleResult.isLoading || getArticleResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getArticleResult.isLoading || getArticleResult.isFetching) {
     return <span>Loading...</span>
   }
 
@@ -22,16 +23,11 @@ export const ViewArticlePage = () => {
     return <span>Error: {getArticleResult.error.message}</span>
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
-
   if (!getArticleResult.data.article) {
     return <span>Article not found</span>
   }
 
   const article = getArticleResult.data.article
-  const me = getMeResult.data.me
 
   return (
     <Segment title={article.name} description={article.description}>

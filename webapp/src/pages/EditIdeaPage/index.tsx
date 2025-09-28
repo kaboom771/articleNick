@@ -8,6 +8,7 @@ import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
+import { useMe } from '../../lib/ctx'
 import { useForm } from '../../lib/form'
 import { type EditArticleRouteParams, getViewArticleRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
@@ -48,9 +49,9 @@ export const EditArticlePage = () => {
   const getArticleResult = trpc.getArticle.useQuery({
     articleNick,
   })
-  const getMeResult = trpc.getMe.useQuery()
+  const me = useMe()
 
-  if (getArticleResult.isLoading || getArticleResult.isFetching || getMeResult.isLoading || getMeResult.isFetching) {
+  if (getArticleResult.isLoading || getArticleResult.isFetching) {
     return <span>Loading...</span>
   }
 
@@ -58,16 +59,11 @@ export const EditArticlePage = () => {
     return <span>Error: {getArticleResult.error.message}</span>
   }
 
-  if (getMeResult.isError) {
-    return <span>Error: {getMeResult.error.message}</span>
-  }
-
   if (!getArticleResult.data.article) {
     return <span>Idea not found</span>
   }
 
   const article = getArticleResult.data.article
-  const me = getMeResult.data.me
 
   if (!me) {
     return <span>Only for authorized</span>
