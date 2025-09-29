@@ -20,13 +20,13 @@ export const EditArticlePage = withPageWrapper({
       articleNick,
     })
   },
-  checkExists: ({ queryResult }) => !!queryResult.data.article,
-  checkExistsMessage: 'Article not found',
-  checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.article?.authorId,
-  checkAccessMessage: 'An article can only be edited by the author',
-  setProps: ({ queryResult }) => ({
-    article: queryResult.data.article!,
-  }),
+  setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
+    const article = checkExists(queryResult.data.article, 'Article not found')
+    checkAccess(ctx.me?.id === article.authorId, 'An article can only be edited by the author')
+    return {
+      article,
+    }
+  },
 })(({ article }) => {
   const navigate = useNavigate()
   const updateArticle = trpc.updateArticle.useMutation()

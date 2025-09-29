@@ -10,7 +10,7 @@ export const getViewArticleRoute = ({ articleNick }: ViewArticleRouteParams) => 
 
 export const editArticleRouteParams = getRouteParams({ articleNick: true })
 export type EditArticleRouteParams = typeof viewArticleRouteParams
-export const getEditArticleRoute = ({ articleNick }: EditArticleRouteParams) => `/ideas/${articleNick}/edit`
+export const getEditArticleRoute = ({ articleNick }: EditArticleRouteParams) => `/articles/${articleNick}/edit`
 
 export const getNewArticleRoute = () => '/articles/new'
 

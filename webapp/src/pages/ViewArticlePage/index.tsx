@@ -14,20 +14,18 @@ export const ViewArticlePage = withPageWrapper({
       articleNick,
     })
   },
-  checkExists: ({ queryResult }) => !!queryResult.data.article,
-  checkExistsMessage: 'Article not found',
-  setProps: ({ queryResult, ctx }) => ({
-    idea: queryResult.data.article!,
+  setProps: ({ queryResult, checkExists, ctx }) => ({
+    article: checkExists(queryResult.data.article, 'Article not found'),
     me: ctx.me,
   }),
-})(({ idea, me }) => (
-  <Segment title={idea.name} description={idea.description}>
+})(({ article, me }) => (
+  <Segment title={article.name} description={article.description}>
     {/* <div className={css.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div> */}
-    <div className={css.author}>Author: {idea.author.nick}</div>
-    <div className={css.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
-    {me?.id === idea.authorId && (
+    <div className={css.author}>Author: {article.author.nick}</div>
+    <div className={css.text} dangerouslySetInnerHTML={{ __html: article.text }} />
+    {me?.id === article.authorId && (
       <div className={css.editButton}>
-        <LinkButton to={getEditArticleRoute({ articleNick: idea.nick })}>Edit Article</LinkButton>
+        <LinkButton to={getEditArticleRoute({ articleNick: article.nick })}>Edit Article</LinkButton>
       </div>
     )}
   </Segment>
