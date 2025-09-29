@@ -2,43 +2,33 @@
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../components/Button'
 import { Segment } from '../../components/segment'
-import { useMe } from '../../lib/ctx'
+import { withPageWrapper } from '../../lib/pageWrapper'
 import { getEditArticleRoute, ViewArticleRouteParams } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 import css from './index.module.scss'
 
-export const ViewArticlePage = () => {
-  const { articleNick } = useParams() as ViewArticleRouteParams
-
-  const getArticleResult = trpc.getArticle.useQuery({
-    articleNick,
-  })
-  const me = useMe()
-
-  if (getArticleResult.isLoading || getArticleResult.isFetching) {
-    return <span>Loading...</span>
-  }
-
-  if (getArticleResult.isError) {
-    return <span>Error: {getArticleResult.error.message}</span>
-  }
-
-  if (!getArticleResult.data.article) {
-    return <span>Article not found</span>
-  }
-
-  const article = getArticleResult.data.article
-
-  return (
-    <Segment title={article.name} description={article.description}>
-      {/* <div className={css.createdAt}>Created At: {format(article.createdAt, 'yyyy-MM-dd')}</div> */}
-      <div className={css.author}>Author: {article.author.nick}</div>
-      <div className={css.text} dangerouslySetInnerHTML={{ __html: article.text }} />
-      {me?.id === article.authorId && (
-        <div className={css.editButton}>
-          <LinkButton to={getEditArticleRoute({ articleNick: article.nick })}>Edit Idea</LinkButton>
-        </div>
-      )}
-    </Segment>
-  )
-}
+export const ViewArticlePage = withPageWrapper({
+  useQuery: () => {
+    const { articleNick } = useParams() as ViewArticleRouteParams
+    return trpc.getArticle.useQuery({
+      articleNick,
+    })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.article,
+  checkExistsMessage: 'Article not found',
+  setProps: ({ queryResult, ctx }) => ({
+    idea: queryResult.data.article!,
+    me: ctx.me,
+  }),
+})(({ idea, me }) => (
+  <Segment title={idea.name} description={idea.description}>
+    {/* <div className={css.createdAt}>Created At: {format(idea.createdAt, 'yyyy-MM-dd')}</div> */}
+    <div className={css.author}>Author: {idea.author.nick}</div>
+    <div className={css.text} dangerouslySetInnerHTML={{ __html: idea.text }} />
+    {me?.id === idea.authorId && (
+      <div className={css.editButton}>
+        <LinkButton to={getEditArticleRoute({ articleNick: idea.nick })}>Edit Article</LinkButton>
+      </div>
+    )}
+  </Segment>
+))

@@ -1,4 +1,3 @@
-import type { TrpcRouterOutput } from '@articleNick/backend/src/router'
 import { zUpdateArticleTrpcInput } from '@articleNick/backend/src/router/updateArticle/input'
 import pick from 'lodash/pick'
 import { useNavigate, useParams } from 'react-router-dom'
@@ -8,12 +7,27 @@ import { FormItems } from '../../components/FormItems'
 import { Input } from '../../components/Input'
 import { TextArea } from '../../components/TextArea'
 import { Segment } from '../../components/segment'
-import { useMe } from '../../lib/ctx'
 import { useForm } from '../../lib/form'
+import { withPageWrapper } from '../../lib/pageWrapper'
 import { type EditArticleRouteParams, getViewArticleRoute } from '../../lib/routes'
 import { trpc } from '../../lib/trpc'
 
-const EditArticleComponent = ({ article }: { article: NonNullable<TrpcRouterOutput['getArticle']['article']> }) => {
+export const EditArticlePage = withPageWrapper({
+  authorizedOnly: true,
+  useQuery: () => {
+    const { articleNick } = useParams() as EditArticleRouteParams
+    return trpc.getArticle.useQuery({
+      articleNick,
+    })
+  },
+  checkExists: ({ queryResult }) => !!queryResult.data.article,
+  checkExistsMessage: 'Article not found',
+  checkAccess: ({ queryResult, ctx }) => !!ctx.me && ctx.me.id === queryResult.data.article?.authorId,
+  checkAccessMessage: 'An article can only be edited by the author',
+  setProps: ({ queryResult }) => ({
+    article: queryResult.data.article!,
+  }),
+})(({ article }) => {
   const navigate = useNavigate()
   const updateArticle = trpc.updateArticle.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
@@ -41,37 +55,4 @@ const EditArticleComponent = ({ article }: { article: NonNullable<TrpcRouterOutp
       </form>
     </Segment>
   )
-}
-
-export const EditArticlePage = () => {
-  const { articleNick } = useParams() as EditArticleRouteParams
-
-  const getArticleResult = trpc.getArticle.useQuery({
-    articleNick,
-  })
-  const me = useMe()
-
-  if (getArticleResult.isLoading || getArticleResult.isFetching) {
-    return <span>Loading...</span>
-  }
-
-  if (getArticleResult.isError) {
-    return <span>Error: {getArticleResult.error.message}</span>
-  }
-
-  if (!getArticleResult.data.article) {
-    return <span>Idea not found</span>
-  }
-
-  const article = getArticleResult.data.article
-
-  if (!me) {
-    return <span>Only for authorized</span>
-  }
-
-  if (me.id !== article.authorId) {
-    return <span>An article can only be edited by the author</span>
-  }
-
-  return <EditArticleComponent article={article} />
-}
+})
