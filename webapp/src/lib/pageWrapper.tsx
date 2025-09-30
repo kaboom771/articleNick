@@ -5,9 +5,9 @@ import { useNavigate } from 'react-router-dom'
 import { ErrorPageComponent } from '../components/ErrorPageComponent'
 import { useAppContext, type AppContext } from './ctx'
 import { getAllArticlesRoute } from './routes'
-import { NotFoundPage } from '../pages/NotFoundPage'
+import { NotFoundPage } from '../pages/other/NotFoundPage'
 
-class CheckExistsError extends Error {}
+class CheckExistsError extends Error { }
 const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
   if (!value) {
     throw new CheckExistsError(message)
@@ -15,7 +15,7 @@ const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
   return value
 }
 
-class CheckAccessError extends Error {}
+class CheckAccessError extends Error { }
 const checkAccessFn = <T,>(value: T, message?: string): void => {
   if (!value) {
     throw new CheckAccessError(message)

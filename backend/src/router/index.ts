@@ -2,13 +2,13 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { trpc } from '../lib/trpc'
 
 // @index('./**/index.ts', f => `import { ${f.path.split('/').slice(0, -1).pop()}TrpcRoute } from '${f.path.split('/').slice(0, -1).join('/')}'`)
-import { createArticleTrpcRoute } from './createArticle'
-import { getArticleTrpcRoute } from './getArticle'
-import { getArticlesTrpcRoute } from './getArticles'
-import { getMeTrpcRoute } from './getMe'
-import { signInTrpcRoute } from './signIn'
-import { signUpTrpcRoute } from './signUp'
-import { updateArticleTrpcRoute } from './updateArticle'
+import { createArticleTrpcRoute } from './articles/createArticle'
+import { getArticleTrpcRoute } from './articles/getArticle'
+import { getArticlesTrpcRoute } from './articles/getArticles'
+import { updateArticleTrpcRoute } from './articles/updateArticle'
+import { getMeTrpcRoute } from './auth/getMe'
+import { signInTrpcRoute } from './auth/signIn'
+import { signUpTrpcRoute } from './auth/signUp'
 // @endindex
 
 export const trpcRouter = trpc.router({
@@ -16,10 +16,10 @@ export const trpcRouter = trpc.router({
   createArticle: createArticleTrpcRoute,
   getArticle: getArticleTrpcRoute,
   getArticles: getArticlesTrpcRoute,
+  updateArticle: updateArticleTrpcRoute,
   getMe: getMeTrpcRoute,
   signIn: signInTrpcRoute,
   signUp: signUpTrpcRoute,
-  updateArticle: updateArticleTrpcRoute,
   // @endindex
 })
 
