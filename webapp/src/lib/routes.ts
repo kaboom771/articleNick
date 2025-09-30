@@ -14,6 +14,8 @@ export const getEditArticleRoute = ({ articleNick }: EditArticleRouteParams) => 
 
 export const getNewArticleRoute = () => '/articles/new'
 
+export const getEditProfileRoute = () => '/edit-profile'
+
 export const getSignUpRoute = () => '/sign-up'
 
 export const getSignInRoute = () => '/sign-in'

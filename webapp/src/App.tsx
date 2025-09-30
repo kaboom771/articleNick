@@ -4,9 +4,10 @@ import { AppContextProvider } from './lib/ctx'
 import * as routes from './lib/routes'
 import { TrpcProvider } from './lib/trpc'
 import { AllAIrticlesPage } from './pages/articles/AllArticlesPage'
-import { EditArticlePage } from './pages/articles/EditIdeaPage'
+import { EditArticlePage } from './pages/articles/EditArticlePage'
 import { NewArticlePage } from './pages/articles/NewArticlePage'
 import { ViewArticlePage } from './pages/articles/ViewArticlePage'
+import { EditProfilePage } from './pages/auth/EditProfilePage'
 import { SignInPage } from './pages/auth/SignInPage'
 import { SignOutPage } from './pages/auth/SignOutPage'
 import { SignUpPage } from './pages/auth/SignUpPage'
@@ -28,6 +29,8 @@ export const App = () => {
               <Route path={routes.getViewArticleRoute(routes.viewArticleRouteParams)} element={<ViewArticlePage />} />
               <Route path={routes.getNewArticleRoute()} element={<NewArticlePage />} />
               <Route path={routes.getEditArticleRoute(routes.editArticleRouteParams)} element={<EditArticlePage />} />
+              <Route path={routes.getEditProfileRoute()} element={<EditProfilePage />} />
+
               <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>

@@ -16,7 +16,7 @@ export const AllAIrticlesPage = () => {
   }
 
   return (
-    <Segment title="All Ideas">
+    <Segment title="All Articles">
       <div className={css.articles}>
         {data.articles.map((article) => (
           <div className={css.article} key={article.nick}>

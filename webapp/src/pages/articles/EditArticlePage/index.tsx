@@ -42,7 +42,7 @@ export const EditArticlePage = withPageWrapper({
   })
 
   return (
-    <Segment title={`Edit Idea: ${article.nick}`}>
+    <Segment title={`Edit Article: ${article.nick}`}>
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
           <Input label="Name" name="name" formik={formik} />

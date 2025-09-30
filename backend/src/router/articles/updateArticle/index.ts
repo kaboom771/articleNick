@@ -6,24 +6,24 @@ export const updateArticleTrpcRoute = trpc.procedure.input(zUpdateArticleTrpcInp
   if (!ctx.me) {
     throw new Error('UNAUTHORIZED')
   }
-  const idea = await ctx.prisma.article.findUnique({
+  const article = await ctx.prisma.article.findUnique({
     where: {
       id: articleId,
     },
   })
-  if (!idea) {
+  if (!article) {
     throw new Error('NOT_FOUND')
   }
-  if (ctx.me.id !== idea.authorId) {
+  if (ctx.me.id !== article.authorId) {
     throw new Error('NOT_YOUR_ARTICLE')
   }
-  if (idea.nick !== input.nick) {
-    const exIdea = await ctx.prisma.article.findUnique({
+  if (article.nick !== input.nick) {
+    const exArticle = await ctx.prisma.article.findUnique({
       where: {
         nick: input.nick,
       },
     })
-    if (exIdea) {
+    if (exArticle) {
       throw new Error('Article with this nick already exists')
     }
   }
