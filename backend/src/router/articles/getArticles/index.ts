@@ -22,6 +22,7 @@ export const getArticlesTrpcRoute = trpc.procedure.input(zGetArticlesTrpcInput).
     cursor: input.cursor ? { serialNumber: input.cursor } : undefined,
     take: input.limit + 1,
   })
+
   const nextArticle = articles.at(input.limit)
   const nextCursor = nextArticle?.serialNumber
   const ArticlesExceptNext = articles.slice(0, input.limit)
