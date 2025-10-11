@@ -6,8 +6,9 @@ import { ErrorPageComponent } from '../components/ErrorPageComponent'
 import { useAppContext, type AppContext } from './ctx'
 import { getAllArticlesRoute } from './routes'
 import { NotFoundPage } from '../pages/other/NotFoundPage'
+import { Loader } from '../components/Loader'
 
-class CheckExistsError extends Error {}
+class CheckExistsError extends Error { }
 const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
   if (!value) {
     throw new CheckExistsError(message)
@@ -15,14 +16,14 @@ const checkExistsFn = <T,>(value: T, message?: string): NonNullable<T> => {
   return value
 }
 
-class CheckAccessError extends Error {}
+class CheckAccessError extends Error { }
 const checkAccessFn = <T,>(value: T, message?: string): void => {
   if (!value) {
     throw new CheckAccessError(message)
   }
 }
 
-class GetAuthorizedMeError extends Error {}
+class GetAuthorizedMeError extends Error { }
 
 type Props = Record<string, any>
 type QueryResult = UseTRPCQueryResult<any, any>
@@ -87,7 +88,7 @@ const PageWrapper = <TProps extends Props = {}, TQueryResult extends QueryResult
   }, [redirectNeeded, navigate])
 
   if (queryResult?.isLoading || queryResult?.isFetching || redirectNeeded) {
-    return <p>Loading...</p>
+    return <Loader type="page" />
   }
 
   if (queryResult?.isError) {
