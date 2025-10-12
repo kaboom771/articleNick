@@ -6,6 +6,7 @@ import { withPageWrapper } from '../../../lib/pageWrapper'
 import { getEditArticleRoute, ViewArticleRouteParams } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
+import { LikeButton } from './likeButton'
 
 export const ViewArticlePage = withPageWrapper({
   useQuery: () => {
@@ -18,11 +19,21 @@ export const ViewArticlePage = withPageWrapper({
     article: checkExists(queryResult.data.article, 'Article not found'),
     me: ctx.me,
   }),
+  showLoaderOnFetching: false
 })(({ article, me }) => (
   <Segment title={article.name} description={article.description}>
     {/* <div className={css.createdAt}>Created At: {format(article.createdAt, 'yyyy-MM-dd')}</div> */}
     <div className={css.author}>Author: {article.author.nick}</div>
     <div className={css.text} dangerouslySetInnerHTML={{ __html: article.text }} />
+    <div className={css.likes}>
+      Likes: {article.likesCount}
+      {me && (
+        <>
+          <br />
+          <LikeButton article={article} />
+        </>
+      )}
+    </div>
     {me?.id === article.authorId && (
       <div className={css.editButton}>
         <LinkButton to={getEditArticleRoute({ articleNick: article.nick })}>Edit Article</LinkButton>

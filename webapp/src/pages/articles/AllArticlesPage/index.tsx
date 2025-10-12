@@ -20,7 +20,7 @@ export const AllAIrticlesPage = () => {
         },
       })
 
-  console.log({ data })
+  //console.log({ data })
 
   return (
     <Segment title="All Articles">
@@ -58,7 +58,9 @@ export const AllAIrticlesPage = () => {
                       </Link>
                     }
                     description={article.description}
-                  />
+                  >
+                    Likes: {article.likesCount}
+                  </Segment>
                 </div>
               ))}
           </InfiniteScroll>

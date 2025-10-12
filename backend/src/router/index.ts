@@ -5,6 +5,7 @@ import { trpc } from '../lib/trpc'
 import { createArticleTrpcRoute } from './articles/createArticle'
 import { getArticleTrpcRoute } from './articles/getArticle'
 import { getArticlesTrpcRoute } from './articles/getArticles'
+import { setArticleLikeTrpcRoute } from './articles/setArticleLike'
 import { updateArticleTrpcRoute } from './articles/updateArticle'
 import { getMeTrpcRoute } from './auth/getMe'
 import { signInTrpcRoute } from './auth/signIn'
@@ -18,6 +19,7 @@ export const trpcRouter = trpc.router({
   createArticle: createArticleTrpcRoute,
   getArticle: getArticleTrpcRoute,
   getArticles: getArticlesTrpcRoute,
+  setArticleLike: setArticleLikeTrpcRoute,
   updateArticle: updateArticleTrpcRoute,
   getMe: getMeTrpcRoute,
   signIn: signInTrpcRoute,
