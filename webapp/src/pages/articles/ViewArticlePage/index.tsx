@@ -1,10 +1,12 @@
 // import { format } from 'date-fns/format'
+import { canBlockArticles, canEditArticle } from '@articleNick/backend/src/utils/can'
 import { useParams } from 'react-router-dom'
 import { LinkButton } from '../../../components/Button'
 import { Segment } from '../../../components/segment'
 import { withPageWrapper } from '../../../lib/pageWrapper'
 import { getEditArticleRoute, ViewArticleRouteParams } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
+import { BlockArticle } from './blockArticleButton'
 import css from './index.module.scss'
 import { LikeButton } from './likeButton'
 
@@ -34,9 +36,14 @@ export const ViewArticlePage = withPageWrapper({
         </>
       )}
     </div>
-    {me?.id === article.authorId && (
+    {canEditArticle(me, article) && (
       <div className={css.editButton}>
         <LinkButton to={getEditArticleRoute({ articleNick: article.nick })}>Edit Article</LinkButton>
+      </div>
+    )}
+    {canBlockArticles(me) && (
+      <div className={css.blockArticleButton}>
+        <BlockArticle article={article} />
       </div>
     )}
   </Segment>

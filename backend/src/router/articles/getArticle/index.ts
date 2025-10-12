@@ -35,6 +35,9 @@ export const getArticleTrpcRoute = trpc.procedure
         },
       },
     })
+    if (rawArticle?.blockedAt) {
+      throw new Error('Article is blocked by administrator')
+    }
     const isLikedByMe = !!rawArticle?.articlesLikes.length
     const likesCount = rawArticle?._count.articlesLikes || 0
     const article = rawArticle && { ..._.omit(rawArticle, ['articlesLikes', '_count']), isLikedByMe, likesCount }

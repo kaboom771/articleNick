@@ -1,4 +1,5 @@
 import { zUpdateArticleTrpcInput } from '@articleNick/backend/src/router/articles/updateArticle/input'
+import { canEditArticle } from '@articleNick/backend/src/utils/can'
 import pick from 'lodash/pick'
 import { useNavigate, useParams } from 'react-router-dom'
 import { Alert } from '../../../components/Alert'
@@ -22,7 +23,7 @@ export const EditArticlePage = withPageWrapper({
   },
   setProps: ({ queryResult, ctx, checkExists, checkAccess }) => {
     const article = checkExists(queryResult.data.article, 'Article not found')
-    checkAccess(ctx.me?.id === article.authorId, 'An article can only be edited by the author')
+    checkAccess(canEditArticle(ctx.me, article), 'An article can only be edited by the author')
     return {
       article,
     }

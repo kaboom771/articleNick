@@ -2,6 +2,7 @@ import { type inferRouterInputs, type inferRouterOutputs } from '@trpc/server'
 import { trpc } from '../lib/trpc'
 
 // @index('./**/index.ts', f => `import { ${f.path.split('/').slice(0, -1).pop()}TrpcRoute } from '${f.path.split('/').slice(0, -1).join('/')}'`)
+import { blockArticleTrpcRoute } from './articles/blockArticle'
 import { createArticleTrpcRoute } from './articles/createArticle'
 import { getArticleTrpcRoute } from './articles/getArticle'
 import { getArticlesTrpcRoute } from './articles/getArticles'
@@ -16,6 +17,7 @@ import { updateProfileTrpcRoute } from './auth/updateProfile'
 
 export const trpcRouter = trpc.router({
   // @index('./**/index.ts', f => `${f.path.split('/').slice(0, -1).pop()}: ${f.path.split('/').slice(0, -1).pop()}TrpcRoute,`)
+  blockArticle: blockArticleTrpcRoute,
   createArticle: createArticleTrpcRoute,
   getArticle: getArticleTrpcRoute,
   getArticles: getArticlesTrpcRoute,

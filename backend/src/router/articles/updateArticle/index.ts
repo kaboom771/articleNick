@@ -1,4 +1,5 @@
 import { trpc } from '../../../lib/trpc'
+import { canEditArticle } from '../../../utils/can'
 import { zUpdateArticleTrpcInput } from './input'
 
 export const updateArticleTrpcRoute = trpc.procedure.input(zUpdateArticleTrpcInput).mutation(async ({ ctx, input }) => {
@@ -14,7 +15,7 @@ export const updateArticleTrpcRoute = trpc.procedure.input(zUpdateArticleTrpcInp
   if (!article) {
     throw new Error('NOT_FOUND')
   }
-  if (ctx.me.id !== article.authorId) {
+  if (canEditArticle(ctx.me, article)) {
     throw new Error('NOT_YOUR_ARTICLE')
   }
   if (article.nick !== input.nick) {
