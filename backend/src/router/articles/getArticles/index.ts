@@ -3,6 +3,8 @@ import { trpc } from '../../../lib/trpc'
 import { zGetArticlesTrpcInput } from './input'
 
 export const getArticlesTrpcRoute = trpc.procedure.input(zGetArticlesTrpcInput).query(async ({ ctx, input }) => {
+  const normalizedSearch = input.search ? input.search.trim().replace(/[\s\n\t]/g, '_') : undefined
+  //const normalizedSearch = input.search ? input.search.trim().replace(/[\s\n\t]/g, ' & ') : undefined
   const rawArticles = await ctx.prisma.article.findMany({
     select: {
       id: true,
@@ -17,6 +19,27 @@ export const getArticlesTrpcRoute = trpc.procedure.input(zGetArticlesTrpcInput).
         },
       },
     },
+    where: !input.search
+      ? undefined
+      : {
+          OR: [
+            {
+              name: {
+                search: normalizedSearch,
+              },
+            },
+            {
+              description: {
+                search: normalizedSearch,
+              },
+            },
+            {
+              text: {
+                search: normalizedSearch,
+              },
+            },
+          ],
+        },
     orderBy: [
       {
         createdAt: 'desc',

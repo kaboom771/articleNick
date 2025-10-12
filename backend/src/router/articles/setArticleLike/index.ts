@@ -1,8 +1,8 @@
 import { trpc } from '../../../lib/trpc'
-import { zSetArticleLikeIdeaTrpcInput } from './input'
+import { zSetArticleLikeTrpcInput } from './input'
 
 export const setArticleLikeTrpcRoute = trpc.procedure
-  .input(zSetArticleLikeIdeaTrpcInput)
+  .input(zSetArticleLikeTrpcInput)
   .mutation(async ({ ctx, input }) => {
     const { articleId, isLikedByMe } = input
     if (!ctx.me) {
