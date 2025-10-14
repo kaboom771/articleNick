@@ -11,6 +11,7 @@ import { trpc } from '../../../lib/trpc'
 
 export const NewArticlePage = withPageWrapper({
   authorizedOnly: true,
+  title: 'Add Article'
 })(() => {
   const createArticle = trpc.createArticle.useMutation()
   const { formik, buttonProps, alertProps } = useForm({

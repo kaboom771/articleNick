@@ -21,7 +21,8 @@ export const ViewArticlePage = withPageWrapper({
     article: checkExists(queryResult.data.article, 'Article not found'),
     me: ctx.me,
   }),
-  showLoaderOnFetching: false
+  showLoaderOnFetching: false,
+  title: ({ article }) => article.name,
 })(({ article, me }) => (
   <Segment title={article.name} description={article.description}>
     {/* <div className={css.createdAt}>Created At: {format(article.createdAt, 'yyyy-MM-dd')}</div> */}

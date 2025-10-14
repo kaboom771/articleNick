@@ -82,6 +82,7 @@ const Password = () => {
 
 export const EditProfilePage = withPageWrapper({
   authorizedOnly: true,
+  title: 'Edit Profile',
   setProps: ({ getAuthorizedMe }) => ({
     me: getAuthorizedMe(),
   }),

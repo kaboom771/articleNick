@@ -28,6 +28,7 @@ export const EditArticlePage = withPageWrapper({
       article,
     }
   },
+  title: ({ article }) => `Edit Article "${article.name}"`,
 })(({ article }) => {
   const navigate = useNavigate()
   const updateArticle = trpc.updateArticle.useMutation()

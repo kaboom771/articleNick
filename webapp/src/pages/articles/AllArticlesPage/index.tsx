@@ -8,11 +8,15 @@ import { layoutContentElRef } from '../../../components/Layout'
 import { Loader } from '../../../components/Loader'
 import { Segment } from '../../../components/segment'
 import { useForm } from '../../../lib/form'
+import { withPageWrapper } from '../../../lib/pageWrapper'
 import { getViewArticleRoute } from '../../../lib/routes'
 import { trpc } from '../../../lib/trpc'
 import css from './index.module.scss'
 
-export const AllAIrticlesPage = () => {
+export const AllAIrticlesPage = withPageWrapper({
+  title: 'ArticleNick',
+  isTitleExact: true
+})(() => {
   const { formik } = useForm({
     initialValues: { search: '' },
     validationSchema: zGetArticlesTrpcInput.pick({ search: true }),
@@ -82,4 +86,4 @@ export const AllAIrticlesPage = () => {
       )}
     </Segment>
   )
-}
+})
