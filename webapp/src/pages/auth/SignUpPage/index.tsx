@@ -12,13 +12,14 @@ import { trpc } from '../../../lib/trpc'
 
 export const SignUpPage = withPageWrapper({
   redirectAuthorized: true,
-  title: 'Sign Up'
+  title: 'Sign Up',
 })(() => {
   const trpcUtils = trpc.useUtils()
   const signUp = trpc.signUp.useMutation()
   const { formik, buttonProps, alertProps } = useForm({
     initialValues: {
       nick: '',
+      email: '',
       password: '',
       passwordAgain: '',
     },
@@ -50,10 +51,11 @@ export const SignUpPage = withPageWrapper({
       <form onSubmit={formik.handleSubmit}>
         <FormItems>
           <Input label="Nick" name="nick" formik={formik} />
+          <Input label="E-mail" name="email" formik={formik} />
           <Input label="Password" name="password" type="password" formik={formik} />
           <Input label="Password again" name="passwordAgain" type="password" formik={formik} />
           <Alert {...alertProps} />
-          <Button {...buttonProps}>Create Article</Button>
+          <Button {...buttonProps}>Sign Up</Button>
         </FormItems>
       </form>
     </Segment>
