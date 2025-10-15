@@ -1,4 +1,5 @@
 import { TrpcRouterOutput } from '@articleNick/backend/src/router'
+import { Icon } from '../../../../components/icon'
 import { trpc } from '../../../../lib/trpc'
 import css from '../index.module.scss'
 
@@ -30,7 +31,7 @@ export const LikeButton = ({ article }: { article: NonNullable<TrpcRouterOutput[
         void setArticleLike.mutateAsync({ articleId: article.id, isLikedByMe: !article.isLikedByMe })
       }}
     >
-      {article.isLikedByMe ? 'Unlike' : 'Like'}
+      <Icon size={32} className={css.likeIcon} name={article.isLikedByMe ? 'likeFilled' : 'likeEmpty'} />
     </button>
   )
 }
