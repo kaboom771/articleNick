@@ -1,3 +1,4 @@
+import { sendArticleBlockedEmail } from '../../../lib/emails'
 import { trpc } from '../../../lib/trpc'
 import { canBlockArticles } from '../../../utils/can'
 import { zBlockArticleTrpcInput } from './input'
@@ -11,6 +12,9 @@ export const blockArticleTrpcRoute = trpc.procedure.input(zBlockArticleTrpcInput
     where: {
       id: articleId,
     },
+    include: {
+      author: true,
+    },
   })
   if (!article) {
     throw new Error('NOT_FOUND')
@@ -23,5 +27,6 @@ export const blockArticleTrpcRoute = trpc.procedure.input(zBlockArticleTrpcInput
       blockedAt: new Date(),
     },
   })
+  void sendArticleBlockedEmail({ user: article.author, article })
   return true
 })
